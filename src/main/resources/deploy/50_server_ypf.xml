@@ -1,0 +1,20 @@
+<?xml version="1.0" ?>
+
+<server class="org.jpos.q2.iso.QServer" logger="LoggerYPF" name="ypf_server">
+	
+	<attr name="port" type="java.lang.Integer">${q2.ypf.port}</attr>
+	<attr name="maxSessions" type="java.lang.Integer">${q2.ypf.maxsessions}</attr>
+	
+	<channel class="org.jpos.iso.channel.ASCIIChannel" name="ASCIIChannel" logger="LoggerYPF" type="server"	
+		packager="org.jpos.iso.packager.GenericPackager">
+		<property name="timeout" value="3600000" />
+		<property name="packager-config" value="cfg/stratus.xml" />
+	</channel>	
+	
+	<request-listener class="org.jpos.iso.Dispatcher" logger="LoggerYPF" realm="incoming-request-listener">
+		<property name="prefix"  value="org.jpos.iso.Incoming_" />
+		<property name="timeout" value="60000" />
+		<property name="queue"   value="YPF_QUEUE" />
+	</request-listener>
+	
+</server>
